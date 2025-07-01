@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: backend-deployment # this is the name of the deployment
+
+spec:
+  replicas: 3
+  selector: # this is the selector of the deployment i.e. which all pods to include in this particular deployment
+    matchLabels: 
+      app: blog-backend
+  template:
+    metadata:
+      labels:
+        app: blog-backend # this is the label of the pod
+    spec:
+      containers:
+      - name: backend
+        image: backend:latest
+        ports:
+        - containerPort: 5000
