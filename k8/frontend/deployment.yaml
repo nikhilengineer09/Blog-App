@@ -3,21 +3,26 @@ kind: Deployment
 
 metadata: 
   name: frontend-deployment
+  labels:
+    app: blog-frontend
 
 spec: 
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: blog-frontend-pod
+      app: blog-frontend
 
   template:
     metadata: 
       labels: 
-        app: blog-frontend-pod
+        app: blog-frontend
 
     spec:
       containers: 
         - name: frontend
-          image: frontend:latest
+          image: nikhiljoshisahab/blog-frontend:6cc5afe4a101e56f87eea9c75b818b65a020cf31
           ports:
             - containerPort: 3000
+          env:
+            - name: REACT_APP_API_URL  # Backend API URL for the frontend to connect to
+              value: "http://blog-backend-service:5000" 

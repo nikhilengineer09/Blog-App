@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata: 
   name: backend-deployment # this is the name of the deployment
+  labels:
+    app: blog-backend
 
 spec:
   replicas: 3
@@ -15,6 +17,11 @@ spec:
     spec:
       containers:
       - name: backend
-        image: backend:latest
+        image: nikhiljoshisahab/blog-backend:6cc5afe4a101e56f87eea9c75b818b65a020cf31 
         ports:
         - containerPort: 5000
+        env:
+        - name: MONGODB_URI  # MongoDB connection string as an environment variable
+          value: "mongodb://mongo:27017/blog-app"
+        - name: PORT
+          value: "5000"  # Backend port for the application
